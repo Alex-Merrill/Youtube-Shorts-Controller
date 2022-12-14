@@ -58,7 +58,8 @@ setInterval(() => {
 	if (!document.querySelector("#shorts-player > div.html5-video-container > video")) return;
 	if (!ytShortEl) ytShortEl = document.querySelector("#shorts-player > div.html5-video-container > video"); 
 
-	// get youtube-shorts-controller-ui elemenet if exists and update timestamp/playback, else create elements
+	// get youtube-shorts-controller-ui elemenet if exists and update timestamp/playback,
+	// else create elements
 	const uiEl = getUIEl();
 	if (uiEl) {
 		// set playback rate
@@ -87,4 +88,4 @@ setInterval(() => {
 		progBar.insertBefore(uiContainer, progBar.firstChild);
 	}
 
-}, 500);
+}, 250);
