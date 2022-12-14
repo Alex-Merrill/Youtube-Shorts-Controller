@@ -2,7 +2,7 @@
 	"manifest_version": 3,
 	"name": "Youtube Shorts Controller",
 	"version": "1.0.0",
-	"description": "Youtube Shorts Controller for fast-forwaring, rewinding, and modifying playback speed",
+	"description": "Youtube Shorts Controller for fast-forwarding, rewinding, and modifying playback speed",
 	"content_scripts": [
 		{
 			"matches": [

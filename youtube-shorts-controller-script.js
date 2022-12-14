@@ -44,10 +44,20 @@ document.addEventListener("keydown", (e) => {
 });
 
 // returns ui element for manipulating timestamp/playback elements
+// if ui element doesn't exist yet, we return the short container to create a new ui
 const getUIEl = () => {
-	const ui = document.getElementById("youtube-shorts-controller-ui");
-	if (!ui) return null;
-	return ui;
+	const currentShortContainer = document.querySelector("#shorts-player > div.html5-video-container > video")
+																				.closest("ytd-reel-video-renderer");
+
+	const currentShortUI = currentShortContainer
+							.querySelector("div.overlay.style-scope.ytd-reel-video-renderer")
+							.querySelector("ytd-reel-player-overlay-renderer")
+							.querySelector("div#overlay")
+							.querySelector("div#progress-bar")
+							.querySelector("div#youtube-shorts-controller-ui");
+
+	if(!currentShortUI) return currentShortContainer;
+	return currentShortUI;
 }
 
 // update ui every 500ms
@@ -61,7 +71,7 @@ setInterval(() => {
 	// get youtube-shorts-controller-ui elemenet if exists and update timestamp/playback,
 	// else create elements
 	const uiEl = getUIEl();
-	if (uiEl) {
+	if (uiEl.id == "youtube-shorts-controller-ui") {
 		// set playback rate
 		const playbackRateText = uiEl.childNodes[0];
 		playbackRateText.innerText = `x${ytShortEl.playbackRate}`;
@@ -70,8 +80,11 @@ setInterval(() => {
 		const timestampText = uiEl.childNodes[1];
 		timestampText.innerText = `${ytShortEl.currentTime.toFixed(0)}s`;
 	} else {
-		// get youtube progress bar div
-		const progBar = document.querySelector("div#progress-bar");
+		// get youtube progress bar div for current short
+		const progBar = uiEl.querySelector("div.overlay.style-scope.ytd-reel-video-renderer")
+							.querySelector("ytd-reel-player-overlay-renderer")
+							.querySelector("div#overlay")
+							.querySelector("div#progress-bar");
 		
 		// create playback/timestamp elements in container
 		const uiContainer = document.createElement("div");
